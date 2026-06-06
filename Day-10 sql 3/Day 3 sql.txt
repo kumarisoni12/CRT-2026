@@ -1,0 +1,484 @@
+connect system/Skumari
+Connected.
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                              NUMBER(3)
+ ENAME                                              CHAR(10)
+ ECITY                                              CHAR(10)
+ ESAL                                               NUMBER(8,2)
+ PINCODE                                            CHAR(6)
+
+SQL> select * from emp;
+ EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       mumbai          50000 441001
+       102 sandy      Pune            25000
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+        22 Himanshu   Nagpur           1000 440026
+
+6 rows selected.
+
+SQL> insert into emp values(110,'Soni','Nagpur', 30000,374899);
+
+1 row created.
+
+SQL> insert into emp values(110,'Sonali','Nagpur', 20000,374899);commit;
+insert into emp values(110,'Sonali','Nagpur', 20000,374899);commit
+                                                           *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> insert into emp values(110,'Soni','Nagpur', 30000,374899);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update emp set ecity='pune' where empid=101;
+
+1 row updated.
+
+SQL> savepoint A;
+
+Savepoint created.
+
+SQL> insert into emp values(111,'Shagun','Nepal', 30000,37489);
+
+1 row created.
+
+SQL> savepoint B;
+
+Savepoint created.
+
+SQL>
+SQL> select* from emp;
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       102 sandy      Pune            25000
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+9 rows selected.
+
+SQL> rollback to B;
+
+Rollback complete.
+
+SQL> select *from emp;
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       102 sandy      Pune            25000
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+9 rows selected.
+ ARITHMETIC OPERTORS
+SQL> dual;
+SP2-0042: unknown command "dual" - rest of line ignored.
+SQL> select 10+20 from dual;
+
+     10+20
+----------
+        30
+
+SQL> select * from emp where ecity='Nagpur';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       104 himanshi   Nagpur          40000 438492
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+
+SQL> select * from emp where esal='30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       105 sonakshi   Banglore        30000 458931
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+SQL> select * from emp where esal>'30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+
+SQL> select * from emp where esal<'30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       102 sandy      Pune            25000
+        22 Himanshu   Nagpur           1000 440026
+
+SQL> select * from emp where esal<='30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       102 sandy      Pune            25000
+       105 sonakshi   Banglore        30000 458931
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+6 rows selected.
+
+SQL> select * from emp where esal>='30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+7 rows selected.
+
+SQL> select * from emp where esal<>'30000';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       102 sandy      Pune            25000
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+        22 Himanshu   Nagpur           1000 440026
+
+LOGICAL OPERATORS
+
+select 10-20 from dual;
+
+     10-20
+----------
+       -10
+
+SQL> select 10*20 from dual;
+
+     10*20
+----------
+       200
+
+SQL> select 10/20 from dual;
+
+     10/20
+----------
+        .5
+
+SQL> select * from emp where esal>All(Select esal FROM emp where esal=5000);
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+        22 Himanshu   Nagpur           1000 440026
+       102 sandy      Pune            25000
+       105 sonakshi   Banglore        30000 458931
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+       104 himanshi   Nagpur          40000 438492
+       101 john       pune            50000 441001
+       103 jack       Nashik          50007 441002
+
+9 rows selected.
+
+SQL> select * from emp where esal>any(Select esal FROM emp where esal>5000);
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+7 rows selected.
+
+SQL> select * from emp where ecity='Nagpur' and esal>5000;
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       104 himanshi   Nagpur          40000 438492
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+
+SQL> select * from emp where esal BETWEEN 30000 AND 50000;
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       104 himanshi   Nagpur          40000 438492
+       105 sonakshi   Banglore        30000 458931
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+6 rows selected.
+
+SQL> select * from emp where ecity in ('Nagpur','Pune');
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       102 sandy      Pune            25000
+       104 himanshi   Nagpur          40000 438492
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+
+SQL> select * from emp where ecity LIKE 'N%';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       103 jack       Nashik          50007 441002
+       104 himanshi   Nagpur          40000 438492
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+       111 Shagun     Nepal           30000 37489
+
+6 rows selected.
+
+SQL> select * from emp where ecity  NOT LIKE 'N%';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       101 john       pune            50000 441001
+       102 sandy      Pune            25000
+       105 sonakshi   Banglore        30000 458931
+
+SQL> select * from emp where ecity='Nagpur' OR ecity='Pune');
+select * from emp where ecity='Nagpur' OR ecity='Pune')
+                                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from emp where ecity='Nagpur' OR ecity='Pune';
+
+     EMPID ENAME      ECITY            ESAL PINCOD
+---------- ---------- ---------- ---------- ------
+       102 sandy      Pune            25000
+       104 himanshi   Nagpur          40000 438492
+        22 Himanshu   Nagpur           1000 440026
+       110 Soni       Nagpur          30000 374899
+       110 Soni       Nagpur          30000 374899
+
+SQL> Aggregate functions
+
+count
+ select count(*) from emp;
+
+  COUNT(*)
+----------
+         9
+
+SQL> select count(ename) from emp;
+
+COUNT(ENAME)
+------------
+           9
+
+SQL> select count(ecity) from emp;
+
+COUNT(ECITY)
+------------
+           9
+
+SQL> select count(ecity) from emp where ecity= 'Nagpur';
+
+COUNT(ECITY)
+------------
+           4
+
+SQL> select count(distinct ecity) from emp;
+
+COUNT(DISTINCTECITY)
+--------------------
+                   6
+
+SQL> select count(distinct ename) from emp;
+
+COUNT(DISTINCTENAME)
+--------------------
+                   8
+
+SQL>
+ select sum(esal) from emp;
+
+ SUM(ESAL)
+----------
+    286007
+
+SQL> select sum(esal) AS 'TOTAL SALARY' from emp where esal>20000;
+select sum(esal) AS 'TOTAL SALARY' from emp where esal>20000
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select sum(esal) AS "TOTAL SALARY" from emp where esal>20000;
+
+TOTAL SALARY
+------------
+      285007
+
+SQL> select sum(distinct esal) AS "TOTAL SALARY" from emp where esal>20000;
+
+TOTAL SALARY
+------------
+      195007
+
+SQL> select ecity, SUM(esal) AS "TOTAL SALARY" from emp GROUP BY ecity;
+
+ECITY      TOTAL SALARY
+---------- ------------
+Pune              25000
+Nagpur           101000
+Banglore          30000
+pune              50000
+Nepal             30000
+Nashik            50007
+
+6 rows selected.
+
+SQL> select avg(esal) from emp;
+
+ AVG(ESAL)
+----------
+31778.5556
+
+SQL> select avg(esal) as "Average Salary" from emp;
+
+Average Salary
+--------------
+    31778.5556
+
+SQL> select avg(esal) as "Average Salary" from emp group by ename;
+
+Average Salary
+--------------
+         25000
+         30000
+         40000
+         30000
+         30000
+         50007
+         50000
+          1000
+
+8 rows selected.
+
+SQL> select avg(esal) as "Average Salary" from emp group by ecity;
+
+Average Salary
+--------------
+         25000
+         25250
+         30000
+         50000
+         30000
+         50007
+
+6 rows selected.
+
+SQL>select min(esal) from emp;
+
+ MIN(ESAL)
+----------
+      1000
+
+SQL> select min(esal)  as "Minimum Salary"from emp;
+
+Minimum Salary
+--------------
+          1000
+
+SQL> select min(esal)  as "Minimum Salary"from emp group by ecity;
+
+Minimum Salary
+--------------
+         25000
+          1000
+         30000
+         50000
+         30000
+         50007
+
+6 rows selected.
+
+SQL> select abs(-44) from dual;
+
+  ABS(-44)
+----------
+        44
+
+SQL> select abs(44) from dual;
+
+   ABS(44)
+----------
+        44
+
+SQL> select power(2,4) from dual;
+
+POWER(2,4)
+----------
+        16
+
+SQL>
+SQL> select sqrt(16) from dual;
+
+  SQRT(16)
+----------
+         4
+select exp(4)from dual;
+
+    EXP(4)
+----------
+  54.59815
+
+SQL> Select floor(4.7) from dual;
+
+FLOOR(4.7)
+----------
+         4
+
+SQL> Select TRUNC(153.274,2) from dual;
+
+TRUNC(153.274,2)
+----------------
+          153.27
+
+SQL> Select MOD(8,3) from dual;
+
+  MOD(8,3)
+----------
+         2
+
+SQL>
